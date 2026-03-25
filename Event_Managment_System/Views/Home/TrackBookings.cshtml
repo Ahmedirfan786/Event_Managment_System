@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Bookings>
+
+
+<div class="container-fluid p-4">
+
+    @if (TempData["BookingStatus"] != null)
+    {    
+        <div class="alert alert-primary">
+            @TempData["BookingStatus"]
+        </div>
+    }
+
+    <h1>Your Bookings</h1>
+
+    <table class="table table-bordered table-responsive">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>Id</th>
+                <th>Category</th>
+                <th>Package</th>
+                <th>Features</th>
+                <th>Price</th>
+                <th>Location</th>
+                <th>Book Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PackageCategory)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PackageName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PackageFeatures)
+                    </td>
+                    <td>
+                        $ @Html.DisplayFor(modelItem => item.PackagePrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @if (item.Status == "Pending")
+                        {
+                            <button class="btn btn-success">Wait for Approve</button>
+                        }
+                        else if (item.Status == "Approved")
+                        {
+                            <form method="post" asp-action="CreateCheckoutSession">
+                                <div>
+                                    <input type="hidden" name="BookingId" value="@item.BookingId" />
+                                    <input type="hidden" name="amount" value="@item.PackagePrice" />
+                                </div>
+
+                                <button type="submit" class="btn btn-info">Proceed To Pay</button>
+                            </form>
+                        }
+                        else if (item.Status == "Rejected")
+                        {
+                            <button class="btn btn-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#reasonmodal"
+                                    data-bookingid="@item.BookingId"
+                                    data-reason="@item.Remarks">
+                                Rejection Reason
+                            </button>
+                        }
+                        else if (item.Status == "Paid")
+                        {
+                            <button class="btn btn-warning">Paid Successfully</button>
+                        }
+                        else if (item.Status == "Completed")
+                        {
+                        <button class="btn btn-dark text-white">Completed</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
+
+
+@* Reject Booking Reason Show JS Modal *@
+<div class="modal fade" id="reasonmodal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><strong>BkId:</strong> <span id="modalBkId"></span></p>
+                <p><strong>Rejection Reason:</strong> <span id="modalReason"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var reasonmodal = document.getElementById('reasonmodal');
+
+    reasonmodal.addEventListener('show.bs.modal', function (event) {
+
+        var btn = event.relatedTarget;
+
+        var bookingId = btn.getAttribute('data-bookingid');
+        var reason = btn.getAttribute('data-reason');
+
+        document.getElementById('modalBkId').textContent = bookingId;
+        document.getElementById('modalReason').textContent = reason;
+
+    });
+</script>

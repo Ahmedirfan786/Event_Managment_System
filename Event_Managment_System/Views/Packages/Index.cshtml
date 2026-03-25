@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Packages>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="container-fluid p-4">
+
+    <h1>Packages List</h1>
+
+    <p>
+        <a class="btn btn-success" asp-action="Create">Create New</a>
+    </p>
+    <table class="table table-bordered">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.PackageId">Edit</a>
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.PackageId">Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PackageId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>

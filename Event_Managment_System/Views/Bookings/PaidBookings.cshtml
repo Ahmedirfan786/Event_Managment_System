@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Bookings>
+
+@{
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="container-fluid p-4">
+
+    <h1>Paid Bookings</h1>
+
+    <table class="table table-bordered table-responsive">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>Id</th>
+                <th>Category</th>
+                <th>Package</th>
+                <th>Features</th>
+                <th>Price</th>
+                <th>User</th>
+                <th>Location</th>
+                <th>Book Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.BookingId</td>
+                    <td>@item.PackageCategory</td>
+                    <td>@item.PackageName</td>
+                    <td>@item.PackageFeatures</td>
+                    <td>$ @item.PackagePrice</td>
+                    <td>@item.User.Name</td>
+                    <td>@item.Location</td>
+                    <td>@item.BookDate.ToString("yyyy-MM-dd")</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a class="btn btn-dark text-white" asp-action="CompleteBk" asp-route-id="@item.BookingId">Set Complete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

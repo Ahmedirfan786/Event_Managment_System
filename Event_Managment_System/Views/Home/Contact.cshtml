@@ -1,0 +1,133 @@
+﻿
+
+<!-- Banner Title -->
+<div class="banner-container">
+    <div class="banner-img"> <img class="banner-img-width" src="~/Website/images/topbanner-1.jpg" alt=""> </div>
+    <div class="banner-head">
+        <div class="banner-head-padding banner-head-margin">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="heading-meta">Events</span>
+                        <h2 class="pwe-heading animate-box" data-animate-effect="fadeInLeft">Contact Us</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact -->
+<div class="contact-section pt-0 pb-60">
+    <div class="container-fluid">
+        <div class="row pb-60">
+            <!-- Address -->
+            <div class="col-md-5">
+                <div class="row">
+                    <div class="col-md-12 mb-30 animate-box" data-animate-effect="fadeInLeft">
+                        <div class="line p-30">
+                            <p><i class="ti-location-pin"></i> <b>LONDON</b></p>
+                            <p class="mb-0">
+                                48 New Brompton Rd, South
+                                <br>Kensington, London, UK
+                            </p>
+                            <div class="separator"></div>
+                            <p class="mb-0">
+                                +44 12 4444 5321
+                                <br>london@pweddings.com
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-30 animate-box" data-animate-effect="fadeInLeft">
+                        <div class="line p-30">
+                            <p><i class="ti-location-pin"></i> <b>NEW YORK</b></p>
+                            <p class="mb-0">
+                                Wallaway 5st St Normain
+                                <br>New York, USA
+                            </p>
+                            <div class="separator"></div>
+                            <p class="mb-0">
+                                +1 98 7276 0079
+                                <br>newyork@pweeddings.com
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Form -->
+            <div class="col-md-6 offset-md-1">
+                <div class="row">
+                    <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                        <p>We would like to hear from you</p>
+                        <form method="post" class="Contact" action="#">
+                            <!-- Form message -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="alert alert-success contact__msg" style="display: none" role="alert"> Your message was sent successfully. </div>
+                                </div>
+                            </div>
+                            <!-- Form elements -->
+                            <div class="row">
+                                @{
+                                    var adminId = Context.Session.GetInt32("AdminId");
+                                    var userId = Context.Session.GetInt32("UserId");
+
+                                    var userName = Context.Session.GetString("UserName");
+                                    var userEmail = Context.Session.GetString("UserEmail");
+                                }
+
+                                <!-- Name -->
+                                <div class="col-md-6 form-group">
+                                    <input name="name" type="text" placeholder="Name *" required
+                                           value="@(userId != null ? userName : "")"
+                                    @(adminId != null ? "disabled" : "")
+                                    @(userId != null ? "readonly" : "")>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-6 form-group">
+                                    <input name="email" type="email" placeholder="Email *" required
+                                           value="@(userId != null ? userEmail : "")"
+                                    @(adminId != null ? "disabled" : "")
+                                    @(userId != null ? "readonly" : "")>
+                                </div>
+
+                                <!-- Subject -->
+                                <div class="col-md-12 form-group">
+                                    <input name="subject" type="text" placeholder="Subject *" required
+                                    @(adminId != null ? "disabled" : "")>
+                                </div>
+
+                                <!-- Message -->
+                                <div class="col-md-12 form-group">
+                                    <textarea name="message" cols="30" rows="4" placeholder="Message *" required
+                                    @(adminId != null ? "disabled" : "")></textarea>
+                                </div>
+
+                                <!-- Button -->
+                                <div class="col-md-12">
+                                    @if (adminId != null)
+                                    {
+                                        <input type="submit" value="Admin cannot send messages"
+                                               class="btn btn-danger" disabled>
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" value="Send Message" class="btn btn-primary">
+                                    }
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Maps -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="google-maps">
+                    <iframe id="gmap_canvas" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13419.032130422971!2d-79.94077173022463!3d32.772154400000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88fe7a1ae84ff639%3A0xe5c782f71924a526!2s24%20King%20St%2C%20Charleston%2C%20SC%2029401%2C%20Amerika%20Birle%C5%9Fik%20Devletleri!5e0!3m2!1str!2str!4v1665070628853!5m2!1str!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

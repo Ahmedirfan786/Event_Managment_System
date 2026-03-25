@@ -1,0 +1,68 @@
+﻿@model Event_Managment_System.Models.Blogs
+
+@{
+    ViewData["Title"] = "Create Blog";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="container-fluid p-4">
+
+    <h1>Create</h1>
+
+    <h4>Blogs</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control"/>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea rows="5" asp-for="Description" class="form-control"/></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" type="file" class="form-control" id="ImageInput" accept=".jpg,.jpeg,.png,.jfif" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+
+                    <div class="mt-2" id="ImagePreview"></div>
+                </div>
+                <div class="form-group mt-2">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <script>
+        // --- Main Image Preview ---
+        document.getElementById('ImageInput').addEventListener('change', function (e) {
+            const previewDiv = document.getElementById('ImagePreview');
+            previewDiv.innerHTML = ''; // Clear previous
+            const file = e.target.files[0];
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.classList.add('img-thumbnail', 'mt-2');
+                img.style.maxWidth = '200px';
+                previewDiv.appendChild(img);
+            }
+        });
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

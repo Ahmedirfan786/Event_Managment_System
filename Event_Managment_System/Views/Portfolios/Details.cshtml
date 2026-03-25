@@ -1,0 +1,84 @@
+﻿@model Event_Managment_System.Models.Portfolios
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+
+<div class="container-fluid p-4">
+
+    <h1>Details</h1>
+
+    <div>
+        <h4>Portfolios</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Budget)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Budget)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Location)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EventDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EventDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Category.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@Html.DisplayFor(model => model.ImagePath)" width="150px" height="100px" alt="PortfolioImages" />
+            </dd>
+
+
+            <dt class="col-sm-2">
+                Portfolio Images
+            </dt>
+
+            <dd class="col-sm-10">
+                <ul>
+                    @foreach (var images in Model.PortfolioImages)
+                    {
+                        <img src="@images.ImagePath" width="150px" height="100px" alt="PortfolioImages" />
+                    }
+                </ul>
+            </dd>
+
+
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.PortfolioId" class="btn btn-warning">Edit</a>
+        <a asp-action="Index" class="btn btn-dark">Back to List</a>
+    </div>
+
+</div>
+
+

@@ -1,0 +1,30 @@
+﻿@model Event_Managment_System.Models.Blogs
+
+<!-- Banner Title -->
+<div class="banner-container">
+    <div class="banner-img"> <img class="banner-img-width" src="~/Website/images/topbanner-2.jpg" alt=""> </div>
+    <div class="banner-head">
+        <div class="banner-head-padding banner-head-margin">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="pwe-heading animate-box" data-animate-effect="fadeInLeft">@Model.Title</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Post -->
+<div class="post-section pt-0 pb-60">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 image-content animate-box" data-animate-effect="fadeInLeft"> <img src="~/Dashboard/BlogImages/@Model.ImagePath" class="img-fluid mb-30" alt="BlogImage"> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                <p>@Model.Description</p>
+            </div>
+        </div>
+    </div>
+</div>

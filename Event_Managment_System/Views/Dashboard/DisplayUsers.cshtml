@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Users>
+
+@{
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="container-fluid p-4">
+
+    <h1>Website Users</h1>
+
+    <table class="table table-bordered table-responsive">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.UserId
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        <img src="/Website/UserImages/@(string.IsNullOrEmpty(item.ImagePath) ? "defaultuserimg.jpg" : item.ImagePath)"
+                             width="70px" height="70px" alt="@item.Name" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>

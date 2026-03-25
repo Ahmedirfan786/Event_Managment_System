@@ -1,0 +1,109 @@
+﻿@model Event_Managment_System.Models.Portfolios
+
+@{
+    ViewData["Title"] = "Create Portfolio";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+
+<div class="container-fluid p-4">
+
+    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
+    <h1>Create Portfolio</h1>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="form-group mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea rows="10" asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="EventDate" class="form-label"></label>
+            <input asp-for="EventDate" class="form-control" type="date" />
+            <span asp-validation-for="EventDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Budget" class="form-label"></label>
+            <input asp-for="Budget" class="form-control" />
+            <span asp-validation-for="Budget" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Location" class="form-label"></label>
+            <input asp-for="Location" class="form-control" />
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Main Image</label>
+            <input asp-for="Image" type="file" class="form-control" id="mainImageInput" accept=".jpg,.jpeg,.png,.jfif" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+            <div class="mt-2" id="mainImagePreview"></div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Additional Images</label>
+            <input name="AdditionalImages" type="file" class="form-control" id="additionalImagesInput" multiple accept=".jpg,.jpeg,.png,.jfif" />
+            <div class="mt-2" id="additionalImagesPreview" class="d-flex flex-wrap gap-2"></div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Category</label>
+            <select asp-for="CategoryId" class="form-control"
+                    asp-items="@(ViewBag.Categories != null ? new SelectList(ViewBag.Categories, "CategoryId", "Name") : new SelectList(Enumerable.Empty<object>()))">
+                <option value="">-- Select Category --</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+
+</div>
+
+@section Scripts {
+
+    <script>
+        // --- Main Image Preview ---
+        document.getElementById('mainImageInput').addEventListener('change', function (e) {
+            const previewDiv = document.getElementById('mainImagePreview');
+            previewDiv.innerHTML = ''; // Clear previous
+            const file = e.target.files[0];
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.classList.add('img-thumbnail', 'mt-2');
+                img.style.maxWidth = '200px';
+                previewDiv.appendChild(img);
+            }
+        });
+
+        // --- Additional Images Preview ---
+        document.getElementById('additionalImagesInput').addEventListener('change', function (e) {
+            const previewDiv = document.getElementById('additionalImagesPreview');
+            previewDiv.innerHTML = ''; // Clear previous
+            const files = e.target.files;
+            if (files.length > 0) {
+                for (let i = 0; i < files.length; i++) {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(files[i]);
+                    img.classList.add('img-thumbnail', 'mt-2', 'me-2');
+                    img.style.maxWidth = '150px';
+                    img.style.height = 'auto';
+                    previewDiv.appendChild(img);
+                }
+            }
+        });
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

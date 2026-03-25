@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Portfolios>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+
+<div class="container-fluid p-4">
+
+    <h1>Portfolios List</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-success">Create New</a>
+    </p>
+    <table class="table table-bordered">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Budget)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EventDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImagePath)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Budget)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventDate)
+                    </td>
+                    <td>
+                        <img src="@Html.DisplayFor(modelItem => item.ImagePath)" width="80px" height="60px" alt="PortfolioImage" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.PortfolioId">Edit</a>
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.PortfolioId">Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PortfolioId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+

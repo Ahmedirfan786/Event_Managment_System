@@ -1,0 +1,84 @@
+﻿@model Event_Managment_System.Models.Users
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <h2 class="text-center mb-4">User Registration</h2>
+
+            <form asp-action="Register" method="post" enctype="multipart/form-data">
+
+                <div class="mb-3">
+                    <label>Name</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label>Password</label>
+                    <div class="input-group">
+                        <input asp-for="PasswordHash" type="password" class="form-control" id="userPassword" />
+
+                        <button type="button" class="btn btn-outline-secondary" id="toggleUserPassword">
+                            <i class="fa-solid fa-eye" id="userEyeIcon"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label>Profile Image</label>
+                    <input asp-for="Image" type="file" class="form-control" onchange="previewImage(event)" />
+                </div>
+
+                <div class="mb-3 text-center">
+                    <img id="imagePreview" src="#" style="display:none; width:150px; height:150px; object-fit:cover; border-radius:50%;" />
+                </div>
+
+                <button type="submit" class="btn btn-primary mb-3 w-100">Register</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('imagePreview');
+            output.src = reader.result;
+            output.style.display = "block";
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+
+<script>
+    const toggleBtn = document.getElementById("toggleUserPassword");
+    const passwordInput = document.getElementById("userPassword");
+    const icon = document.getElementById("userEyeIcon");
+
+    toggleBtn.onclick = function () {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.replace("fa-eye", "fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            icon.classList.replace("fa-eye-slash", "fa-eye");
+        }
+    };
+</script>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

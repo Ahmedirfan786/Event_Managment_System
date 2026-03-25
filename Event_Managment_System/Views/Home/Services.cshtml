@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Categories>
+
+<!-- Banner Title -->
+<div class="banner-container">
+        <div class="banner-img"> <img class="banner-img-width" src="/Website/images/topbanner-1.jpg" alt=""> </div>
+        <div class="banner-head">
+            <div class="banner-head-padding banner-head-margin">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="heading-meta">Events</span>
+                            <h2 class="pwe-heading animate-box" data-animate-effect="fadeInLeft">Our Services</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<!-- Services -->
+<div class="services-section services pt-0 pb-90">
+    <div class="container-fluid">
+        <div class="row">
+
+            @foreach (var cat in Model)
+            {
+                <div class="col-md-4 animate-box" data-animate-effect="fadeInLeft">
+                    <div class="item mb-30">
+                        <div class="position-re o-hidden"> <img src="~/Dashboard/CategoryImages/@cat.ImagePath" id="catimg" alt="@cat.Name"> </div>
+                        <div class="con">
+                            <span class="category">
+                                <a href="#">@cat.Name</a>
+                            </span>
+                            <h5><a href="#">@cat.Name</a></h5>
+
+                            <a asp-controller="Home" asp-action="Packages" asp-route-id="@cat.CategoryId" asp class="badge bg-danger text-white">Packages</a>
+                            <a asp-controller="Home" asp-action="Portfolios" asp-route-id="@cat.CategoryId" class="badge bg-warning text-dark">Portfolio</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

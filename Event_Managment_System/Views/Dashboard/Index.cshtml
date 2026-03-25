@@ -1,0 +1,160 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Bookings>
+
+@{
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Dashboard</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-primary text-white mb-4">
+                            <div class="card-body">Event Categories ( @ViewBag.CategoriesCount )</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="Categories" asp-action="Index">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-warning text-dark mb-4">
+                            <div class="card-body">Event Packages ( @ViewBag.PackagesCount )</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-dark stretched-link" asp-controller="Packages" asp-action="Index">View Details</a>
+                                    <div class="small text-dark"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-success text-white mb-4">
+                            <div class="card-body">User Messages ( @ViewBag.MessagesCount )</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="Dashboard" asp-action="DisplayMessages">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-danger text-white mb-4">
+                            <div class="card-body">Total Users ( @ViewBag.UsersCount )</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="Dashboard" asp-action="DisplayUsers">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-dark text-white mb-4">
+                                <div class="card-body">Pending Bookings ( @ViewBag.PendingBookingsCount )</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="Bookings" asp-action="PendingBookings">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-white text-dark mb-4">
+                                <div class="card-body">Rejected Bookings ( @ViewBag.RejectedBookingsCount )</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-dark stretched-link" asp-controller="Bookings" asp-action="RejectedBookings">View Details</a>
+                                    <div class="small text-dark"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card text-white mb-4" style="background-color:orangered;">
+                                <div class="card-body">Approved Bookings ( @ViewBag.ApprovedBookingsCount )</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="Bookings" asp-action="ApprovedBookings">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card text-white mb-4" style="background-color:deeppink;">
+                                <div class="card-body">Paid Bookings ( @ViewBag.PaidBookingsCount )</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="Bookings" asp-action="PaidBookings">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card text-white mb-4" style="background-color:mediumpurple;">
+                                <div class="card-body">Completed Bookings ( @ViewBag.CompletedBookingsCount )</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="Bookings" asp-action="CompletedBookings">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card text-dark mb-4" style="background-color:springgreen;">
+                                <div class="card-body">Total Blogs ( @ViewBag.BlogsCount )</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-dark stretched-link" asp-controller="Blogs" asp-action="Index">View Details</a>
+                                    <div class="small text-dark"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                        <div class="card text-white mb-4" style="background-color:#20c997;">
+                        <div class="card-body">Total Portfolios ( @ViewBag.PortfoliosCount )</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="Portfolios" asp-action="Index">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="card mb-4">
+                        <div class="card-header bg-dark text-white">
+                            <i class="fas fa-table me-1"></i>
+                            Recent 50 Bookings
+                        </div>
+                        <div class="card-body bg-light">
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Category</th>
+                                        <th>Package</th>
+                                        <th>Features</th>
+                                        <th>Price</th>
+                                        <th>User</th>
+                                        <th>Location</th>
+                                        <th>Book Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.BookingId</td>
+                                            <td>@item.PackageCategory</td>
+                                            <td>@item.PackageName</td>
+                                            <td>@item.PackageFeatures</td>
+                                            <td>$ @item.PackagePrice</td>
+                                            <td>@item.User.Name</td>
+                                            <td>@item.Location</td>
+                                            <td>@item.BookDate.ToString("yyyy-MM-dd")</td>
+                                            <td>@item.Status</td>
+                                        </tr>
+
+                                    }                 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Categories>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="container-fluid p-4">
+    <h1>Categories List</h1>
+
+    <p>
+        <a class="btn btn-success" asp-action="Create">Create New</a>
+    </p>
+    <table class="table table-bordered">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImagePath)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <img src="~/Dashboard/CategoryImages/@Html.DisplayFor(modelItem => item.ImagePath)" width="50px" height="60px" alt="CategoryImage" />
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a>
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.CategoryId">Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

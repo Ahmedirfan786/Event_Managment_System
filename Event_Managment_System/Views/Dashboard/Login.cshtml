@@ -1,0 +1,108 @@
+﻿@{
+    Layout = null;
+}
+
+<link href="~/Dashboard/css/styles.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+
+<main>
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="min-height:70vh;">
+            <div class="col-lg-4 col-md-6">
+
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+
+                    <div class="card-header bg-dark text-white text-center">
+                        <h4 class="mb-0">Admin Login</h4>
+                    </div>
+
+                    <div class="card-body">
+
+                        <form asp-controller="Dashboard" asp-action="Login" method="post">
+
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" name="Email" class="form-control" placeholder="Enter email" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+
+                                <div class="input-group">
+                                    <input type="password" id="passwordField" name="PasswordHash"
+                                           class="form-control" placeholder="Enter password" required />
+
+                                    <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                        <i class="fa-solid fa-eye" id="eyeIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-dark">
+                                    Login
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                    <div class="card-footer text-center small d-flex">
+                        Event Management System 
+
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-warning btn-sm mx-auto">Back To Home</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="~/Dashboard/js/scripts.js"></script>
+<script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script type="text/javascript">
+    @* Success Message *@
+    @if (TempData["SuccessMsg"] != null)
+    {
+        <text>toastr.success('@TempData["SuccessMsg"]'); </text>
+    }
+
+    @* Invalid Email Message *@
+    @if (TempData["InvalidEmail"] != null)
+    {
+        <text>toastr.error('@TempData["InvalidEmail"]'); </text>
+    }
+    @* Invalid Email Message *@
+    @if (TempData["InvalidPassword"] != null)
+    {
+        <text>toastr.error('@TempData["InvalidPassword"]'); </text>
+    }
+</script>
+
+<script>
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordField = document.getElementById("passwordField");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    togglePassword.addEventListener("click", function () {
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        }
+    });
+</script>
+

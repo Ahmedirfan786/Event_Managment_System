@@ -1,0 +1,66 @@
+﻿@model Event_Managment_System.Models.Bookings
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+
+            <h2 class="text-center mb-4">Book Event Package</h2>
+
+            <form asp-action="Booking" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <!-- Package Name -->
+                <div class="mb-3">
+                    <label class="form-label">Package Name</label>
+                    <input asp-for="PackageName" class="form-control" readonly />
+                </div>
+
+                <!-- Package Category -->
+                <div class="mb-3">
+                    <label class="form-label">Category</label>
+                    <input asp-for="PackageCategory" class="form-control" readonly />
+                </div>
+
+                <!-- Package Price -->
+                <div class="mb-3">
+                    <label class="form-label">Package Price</label>
+                    <input asp-for="PackagePrice" class="form-control" readonly />
+                </div>
+
+                <!-- Package Features -->
+                <div class="mb-3">
+                    <label class="form-label">Package Features</label>
+                    <textarea asp-for="PackageFeatures" class="form-control" rows="3" readonly></textarea>
+                </div>
+
+                <!-- Location -->
+                <div class="mb-3">
+                    <label class="form-label">Event Location</label>
+                    <input asp-for="Location" class="form-control" placeholder="Enter event location" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+
+                <!-- Booking Date -->
+                <div class="mb-3">
+                    <label class="form-label">Booking Date</label>
+                    <input asp-for="BookDate" type="date" class="form-control" />
+                    <span asp-validation-for="BookDate" class="text-danger"></span>
+                </div>
+
+                <!-- Hidden Status -->
+                <input type="hidden" asp-for="Status" value="Pending" />
+
+                <button type="submit" class="btn btn-primary w-100 mb-3">
+                    Confirm Booking
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

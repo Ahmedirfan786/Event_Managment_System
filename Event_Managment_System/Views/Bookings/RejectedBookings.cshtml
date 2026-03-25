@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Bookings>
+
+@{
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="container-fluid p-4">
+
+    <h1>Rejected Bookings</h1>
+
+    <table class="table table-bordered table-responsive">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>Id</th>
+                <th>Category</th>
+                <th>Package</th>
+                <th>Features</th>
+                <th>Price</th>
+                <th>User</th>
+                <th>Location</th>
+                <th>Book Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.BookingId</td>
+                    <td>@item.PackageCategory</td>
+                    <td>@item.PackageName</td>
+                    <td>@item.PackageFeatures</td>
+                    <td>$ @item.PackagePrice</td>
+                    <td>@item.User.Name</td>
+                    <td>@item.Location</td>
+                    <td>@item.BookDate.ToString("yyyy-MM-dd")</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <!-- Single button to view Remarks -->
+                        <button class="btn btn-warning view-remarks-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#remarksModal"
+                                data-bookingid="@item.BookingId"
+                                data-remarks="@item.Remarks">
+                            Reason
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="remarksModal" tabindex="-1" aria-labelledby="remarksModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="remarksModalLabel">Booking Remarks</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Booking ID:</strong> <span id="modalBookingId"></span></p>
+                <p><strong>Remarks:</strong></p>
+                <textarea id="modalRemarks" class="form-control" rows="4" readonly></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var remarksModal = document.getElementById('remarksModal');
+
+    remarksModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget; // Button that triggered the modal
+        var bookingId = button.getAttribute('data-bookingid');
+        var remarks = button.getAttribute('data-remarks') || '';
+
+        // Populate modal fields
+        document.getElementById('modalBookingId').textContent = bookingId;
+        document.getElementById('modalRemarks').value = remarks;
+    });
+</script>

@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Bookings>
+
+@{
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="container-fluid p-4">
+
+    <h1>Pending Bookings</h1>
+
+    <table class="table table-bordered table-responsive">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>Id</th>
+                <th>Category</th>
+                <th>Package</th>
+                <th>Features</th>
+                <th>Price</th>
+                <th>User</th>
+                <th>Location</th>
+                <th>Book Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PackageCategory)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PackageName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PackageFeatures)
+                    </td>
+                    <td>
+                      $ @Html.DisplayFor(modelItem => item.PackagePrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal"
+                                data-bookingid="@item.BookingId">
+                            Reject
+                        </button>
+                        <a class="btn btn-success" asp-action="ApproveBk" asp-route-id="@item.BookingId">Approve</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
+
+
+@* Reject Booking JS Modal *@
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Bookings" asp-action="RejectBK" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rejectModalLabel">Confirm Reject Booking</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="bookingId" name="bookingId" />
+                    <p>Are you sure you want to reject Booking ID: <span id="displayBookingId"></span>?</p>
+                    <div class="mb-3">
+                        <label for="reason" class="form-label">Reason for rejection (optional):</label>
+                        <textarea class="form-control" id="reason" name="reason"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                    <button type="submit" class="btn btn-danger">Confirm Reject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var rejectModal = document.getElementById('rejectModal');
+    rejectModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget; // Button that triggered the modal
+        var bookingId = button.getAttribute('data-bookingid');
+
+        // Update modal content
+        var displayId = rejectModal.querySelector('#displayBookingId');
+        var inputId = rejectModal.querySelector('#bookingId');
+        displayId.textContent = bookingId;
+        inputId.value = bookingId;
+    });
+</script>

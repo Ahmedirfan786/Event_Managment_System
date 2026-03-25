@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Event_Managment_System.Models.PortfolioImages>
+
+<!-- Banner Title -->
+<div class="banner-container">
+    <div class="banner-img"> <img class="banner-img-width" src="~/Website/images/topbanner-1.jpg" alt=""> </div>
+    <div class="banner-head">
+        <div class="banner-head-padding banner-head-margin">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="heading-meta">.portfolio</span>
+                        <h2 class="pwe-heading animate-box" data-animate-effect="fadeInLeft">@ViewBag.PortfolioName</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Portfolio -->
+<div class="pwe-section pt-0 pb-60">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 animate-box" data-animate-effect="fadeInLeft">
+                <p>@ViewBag.PortfolioDescription</p>
+            </div>
+            <div class="col-md-4 animate-box" data-animate-effect="fadeInLeft">
+                <p>
+                    <br> <b>Location :</b> @ViewBag.PortfolioLocation
+                    <br> <b>Budget:</b> $ @ViewBag.PortfolioBudget
+                    <br> <b>Category:</b>@ViewBag.CategoryName
+                </p>
+            </div>
+        </div>
+
+        <!-- Gallery -->
+        <div class="row mb-60">
+            @if (Model.Any())
+            {
+                @foreach (var image in Model)
+                {
+                    <div class="col-md-4 gallery-item animate-box" data-animate-effect="fadeInLeft">
+                        <a href="@image.ImagePath" title="@ViewBag.CategoryName" class="img-zoom">
+                            <div class="gallery-box">
+                                <div class="gallery-img">
+                                    <img src="@image.ImagePath" class="portfolio-img-fixed mx-auto d-block" alt="@ViewBag.PortfolioName">
+                                </div>
+                                <div class="gallery-detail text-center">
+                                    <i class="ti-fullscreen"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-md-12 text-center">
+                    <h4>No Images Available</h4>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<!-- Clients -->
+<div class="clients-section clients">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 owl-carousel owl-theme">
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/1.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/2.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/3.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/4.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/5.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/6.jpg" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .portfolio-img-fixed {
+        width: 100%; /* full width of the container */
+        height: 250px; /* fixed height */
+        object-fit: cover; /* crop image to fill without distortion */
+        border-radius: 8px; /* optional: rounded corners */
+    }
+
+    .gallery-item .gallery-box {
+        height: 250px; /* same as img height */
+        overflow: hidden;
+    }
+</style>

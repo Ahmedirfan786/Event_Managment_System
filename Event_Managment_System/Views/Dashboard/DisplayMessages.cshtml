@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Messages>
+
+@{
+    ViewData["Title"] = "DisplayMessages";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="container-fluid p-4">
+
+    <h1>Display Messages</h1>
+
+    <table class="table table-bordered">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subject)
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @(item.Subject.Length > 35
+                        ? item.Subject.Substring(0,35) + "..." : item.Subject)
+                </td>
+                <td>
+                        <a href="javascript:void(0);" class="btn btn-primary"
+                           onclick='showDetails(@Html.Raw(System.Text.Json.JsonSerializer.Serialize(item)))'>
+                            Details
+                        </a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+
+</div>
+
+@* Message Detail Show Modal *@
+<div class="modal fade" id="detailsModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Message Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Name:</strong> <span id="mName"></span></p>
+                <p><strong>Email:</strong> <span id="mEmail"></span></p>
+                <p><strong>Subject:</strong> <span id="mSubject"></span></p>
+                <p><strong>Message:</strong></p>
+                <p id="mMessage"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Message Detail Show Js *@
+<script>
+    function showDetails(item) {
+
+        document.getElementById("mName").innerText = item.Name;
+        document.getElementById("mEmail").innerText = item.Email;
+        document.getElementById("mSubject").innerText = item.Subject;
+        document.getElementById("mMessage").innerText = item.Message;
+
+        var myModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+        myModal.show();
+    }
+</script>

@@ -1,0 +1,122 @@
+﻿@model Event_Managment_System.Models.Admin
+
+@{
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Manage Profile</h1>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <form asp-action="ManageProfile" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="AdminId" class="form-label">Admin ID</label>
+                        <input type="text" class="form-control" id="AdminId" name="AdminId" value="@Model.AdminId" readonly />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Password" class="form-label">Password</label>
+
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="Password" name="PasswordHash"
+                                   placeholder="Enter new password if you want to change" />
+
+                            <button type="button" class="btn btn-outline-secondary" id="togglePassword2">
+                                <i class="fa-solid fa-eye" id="eyeIcon2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Image" class="form-label">Profile Image</label>
+                        <input type="file" class="form-control" id="Image" name="ProfileImage" accept=".jpg,.jpeg,.png,.jfif" onchange="previewImage(event)" />
+
+                        <span asp-validation-for="ProfileImage" class="text-danger d-block mt-1"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Current Image</label>
+                        <div>
+                            @if (!string.IsNullOrEmpty(Model.ProfileImagePath))
+                            {
+                                <img src="~/Dashboard/AdminImages/@Model.ProfileImagePath"
+                                     alt="Old Image"
+                                     style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 1px solid #ddd;"
+                                     id="oldImage" />
+                            }
+                            <img id="previewImg" src="#" alt="Preview Image"
+                                 style="display:none; width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 2px solid #007bff;" />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+    }
+
+    <script>
+        const togglePassword2 = document.getElementById("togglePassword2");
+        const passwordField2 = document.getElementById("Password");
+        const eyeIcon2 = document.getElementById("eyeIcon2");
+
+        togglePassword2.addEventListener("click", function () {
+            if (passwordField2.type === "password") {
+                passwordField2.type = "text";
+                eyeIcon2.classList.remove("fa-eye");
+                eyeIcon2.classList.add("fa-eye-slash");
+            } else {
+                passwordField2.type = "password";
+                eyeIcon2.classList.remove("fa-eye-slash");
+                eyeIcon2.classList.add("fa-eye");
+            }
+        });
+    </script>
+
+
+    <script>
+        function previewImage(event) {
+            var input = event.target;
+            var preview = document.getElementById('previewImg');
+            var old = document.getElementById('oldImage');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'inline-block';
+                    if (old) old.style.opacity = "0.3"; // Dim the old image to show it's being replaced
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.src = '#';
+                preview.style.display = 'none';
+                if (old) old.style.opacity = "1";
+            }
+        }
+    </script>
+
+}

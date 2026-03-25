@@ -1,0 +1,122 @@
+﻿@model Tuple<List<Event_Managment_System.Models.Categories>, List<Event_Managment_System.Models.Blogs>>
+
+
+<!-- Slider -->
+<section class="hero-simple d-flex align-items-center" style="background-image: url('/Website/images/slider/01.jpg'); background-size: cover; background-position: center; height: 100vh;">
+    <div class="container text-white">
+        <div class="row h-100 align-items-center">
+            <div class="col-md-6 text-left">
+                <div class="text-inner">
+                    <div class="desc">
+                        <span class="heading-meta">Events</span>
+                        <h2 class="pwe-heading animate-box" data-animate-effect="fadeInLeft">To Know Us is to Love Us!</h2>
+                        <p class="hero-subtitle animate-box" data-animate-effect="fadeInLeft">
+                            We would love to meet up and chat about how we can make YOUR Beautiful Events happen!
+                        </p>
+                        <div class="btn-contact animate-box" data-animate-effect="fadeInLeft">
+                            <a class="btn btn-dark"><span>Event EMS</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Services -->
+<div class="services-section services clear pt-90 pb-90">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 mb-30">
+                <span class="heading-meta">Events</span>
+                <h2 class="pwe-heading animate-box" data-animate-effect="fadeInLeft">Our Services</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="owl-carousel owl-theme">
+
+                    @foreach (var cat in Model.Item1)
+                    {
+                        <div class="item">
+                            <div class="position-re o-hidden">
+                                <img id="catimg" src="~/Dashboard/CategoryImages/@cat.ImagePath" alt="@cat.Name">
+                            </div>
+
+                            <div class="con">
+                                <span class="category">
+                                    <a href="#">. @cat.Name</a>
+                                </span>
+
+                                <h5>
+                                    <a href="#">@cat.Name</a>
+                                </h5>
+
+                                <a asp-controller="Home" asp-action="Packages" asp-route-id="@cat.CategoryId" asp class="badge bg-danger text-white">Packages</a>
+                                <a asp-controller="Home" asp-action="Portfolios" asp-route-id="@cat.CategoryId" class="badge bg-warning text-dark">Portfolio</a>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Blog -->
+<div class="blog-section blog pt-90 pb-90">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 mb-30">
+                <span class="heading-meta">Events</span>
+                <h2 class="pwe-heading animate-box" data-animate-effect="fadeInLeft">Latest Blogs</h2>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var blog in Model.Item2)
+            {
+                <div class="col-md-4">
+                    <div class="item mb-30 animate-box" data-animate-effect="fadeInLeft">
+                        <div class="post-img">
+                            <img src="~/Dashboard/BlogImages/@blog.ImagePath" style="height:200px; object-fit:cover;" alt="BlogImage">
+                            <div class="date">
+                                <a href=""><i>@blog.Date.ToString("dd-MM-yyyy")</i> </a>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h5>@(blog.Title.Length > 35 ? blog.Title.Substring(0, 35) + "..." : blog.Title)</h5>
+                            <a asp-controller="Home" asp-action="BlogDetail" asp-route-id="@blog.BlogId" class="btn btn-dark text-white">Read Blog</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Clients -->
+<div class="clients-section clients">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 owl-carousel owl-theme">
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/1.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/2.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/3.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/4.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/5.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/6.jpg" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

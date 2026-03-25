@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Portfolios>
+
+<!-- Banner Title -->
+<div class="banner-container">
+    <div class="banner-img"> <img class="banner-img-width" src="~/Website/images/topbanner-2.jpg" alt=""> </div>
+    <div class="banner-head">
+        <div class="banner-head-padding banner-head-margin">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="heading-meta">.Works</span>
+                        <h2 class="pwe-heading animate-box" data-animate-effect="fadeInLeft">Our Portfolio</h2>
+                        <p><p>@ViewBag.CategoryName</p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Portfolio -->
+<div class="portfolio-section portfolio pt-0 pb-60">
+    <div class="container-fluid">
+        <div class="row">
+            @if (Model.Any())
+            {
+                @foreach (var portfolio in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="item animate-box" data-animate-effect="fadeInLeft">
+                            <div class="portfolio-img">
+                                <a asp-action="PortfolioDetail" asp-route-id="@portfolio.PortfolioId"><img src="@portfolio.ImagePath" alt="@portfolio.Name"></a>
+                            </div>
+                            <div class="content">
+                                <h5><a href="#">@portfolio.Name</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-md-12 text-center">
+                    <h4>No Portfolios Available</h4>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Clients -->
+<div class="clients-section clients">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 owl-carousel owl-theme">
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/1.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/2.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/3.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/4.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/5.jpg" alt=""></a>
+                </div>
+                <div class="client-logo">
+                    <a href="#"><img src="~/Website/images/clients/6.jpg" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

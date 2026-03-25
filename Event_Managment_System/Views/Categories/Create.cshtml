@@ -1,0 +1,67 @@
+﻿@model Event_Managment_System.Models.Categories
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="container-fluid p-4">
+
+    <h1>Create Category</h1>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+
+            <form asp-action="Create" enctype="multipart/form-data">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Image" class="control-label">Category Image</label>
+                    <input asp-for="Image" type="file" id="ImageInput" class="form-control" accept="image/*" />
+
+                    <div class="mt-2" id="ImagePreview"></div>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    // --- Main Image Preview ---
+    document.getElementById('ImageInput').addEventListener('change', function (e) {
+        const previewDiv = document.getElementById('ImagePreview');
+        previewDiv.innerHTML = ''; // Clear previous
+        const file = e.target.files[0];
+        if (file) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.classList.add('img-thumbnail', 'mt-2');
+            img.style.maxWidth = '200px';
+            previewDiv.appendChild(img);
+        }
+    });
+
+</script>

@@ -1,0 +1,110 @@
+﻿@model Event_Managment_System.Models.Users
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <h2 class="text-center mb-4">Manage Profile</h2>
+
+            <form asp-action="ManageProfile" method="post" enctype="multipart/form-data">
+
+                <div class="mb-3">
+                    <label for="UserId" class="form-label">User ID</label>
+                    <input type="text" class="form-control" id="UserId" name="UserId" value="@Model.UserId" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label>Name</label>
+                    <input asp-for="Name" value="@Model.Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input asp-for="Email" value="@Model.Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                
+                <div class="mb-3">
+                    <label>Password</label>
+                    <div class="input-group">
+                        <input name="PasswordHash" type="password" placeholder="Enter New Password To Change" class="form-control" id="registerPassword" />
+                        <button type="button" class="btn btn-outline-secondary" id="toggleRegisterPassword">
+                            <i class="fa-solid fa-eye" id="registerEyeIcon"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label>Profile Image</label>
+                    <input asp-for="Image" type="file" class="form-control" accept=".jpg,.jpeg,.png,.jfif" onchange="previewImage(event)" />
+                    <span asp-validation-for="Image" class="text-danger d-block mt-1"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Current Image</label>
+                    <div>
+                        @if (!string.IsNullOrEmpty(Model.ImagePath))
+                        {
+                            <img src="~/Website/UserImages/@Model.ImagePath"
+                                 alt="Old Image"
+                                 style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 1px solid #ddd;"
+                                 id="oldImage" />
+                        }
+                        <img id="previewImg" src="#" alt="Preview Image"
+                             style="display:none; width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 2px solid #007bff;" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary mb-3 w-100">Update Profile</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    const toggleBtn = document.getElementById("toggleRegisterPassword");
+    const passwordInput = document.getElementById("registerPassword");
+    const eyeIcon = document.getElementById("registerEyeIcon");
+
+    toggleBtn.onclick = function () {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.replace("fa-eye", "fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.replace("fa-eye-slash", "fa-eye");
+        }
+    };
+</script>
+
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var preview = document.getElementById('previewImg');
+        var old = document.getElementById('oldImage');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = 'inline-block';
+                if (old) old.style.opacity = "0.3"; // Dim the old image to show it's being replaced
+            }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = '#';
+            preview.style.display = 'none';
+            if (old) old.style.opacity = "1";
+        }
+    }
+</script>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

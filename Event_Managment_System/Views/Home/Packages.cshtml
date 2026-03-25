@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Event_Managment_System.Models.Packages>
+
+<!-- Packages -->
+<div class="price-section pt-60 pb-60 price bg-pink">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="heading-meta">Packages </span>
+                <h2 class="pwe-heading animate-box" data-animate-effect="fadeInLeft">
+                    @ViewBag.CategoryName
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                @if (Model.Any())
+                {
+                    <div class="owl-carousel owl-theme">
+
+                        @foreach (var package in Model)
+                        {
+                            <div class="item">
+                                <div class="cont">
+
+                                    <div class="type">
+                                        <h6>@package.Name</h6>
+                                    </div>
+
+                                    <div class="value">
+                                        <h4>@package.price<span>$</span></h4>
+                                        <p>Starting From</p>
+                                    </div>
+
+                                    <div class="feat">
+                                        <ul>
+                                            @foreach (var feature in package.PackageFeatures)
+                                            {
+                                                <li>@feature.Name</li>
+                                            }
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                                @if (Context.Session.GetInt32("UserId") != null)
+                                {
+                                    <div class="btn-contact">
+                                        <a asp-action="Booking" asp-route-id="@package.PackageId" ><span>Book Now</span></a>
+                                    </div>
+                                }
+                                else if (Context.Session.GetInt32("AdminId") != null)
+                                {
+                                    <div class="btn btn-danger">
+                                        <a href="#"><span>Admin Can't Book</span></a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="btn btn-success">
+                                        <a asp-action="Login"><span>Login First as User</span></a>
+                                    </div>
+                                }
+
+
+
+                            </div>
+                        }
+
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center p-5">
+                        <h4>No Packages Available</h4>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
